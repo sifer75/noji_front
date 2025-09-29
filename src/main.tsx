@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import SectionCards from "./Pages/SectionCards.tsx";
-import SectionContainer from "./components/SectionContainer.tsx";
+import Homepage from "./Pages/Homepage.tsx";
+import Edition from "./Pages/Edition.tsx";
 
 const router = createBrowserRouter([
   {
@@ -12,11 +13,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <SectionContainer id="home-sections" />,
+        element: <Homepage id="App__sectionContainer" />,
       },
       {
         path: "/section/:id",
-        element: <SectionCards />,
+        element: <SectionCards id="App__sectionCards" />,
+      },
+      {
+        path: "/section/:id/edition",
+        element: <Edition id="App__edition" />,
       },
     ],
   },
