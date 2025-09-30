@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+.tiptap-editor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.tiptap-editor:focus-visible {
+  outline: none;
+  border-color: #3b82f6; /* blue-500 */
+}
+
+.tiptap-editor p {
+  margin: 0;
+}
+
+.tiptap-editor strong {
+  font-weight: bold;
+}
+
+.tiptap-editor em {
+  font-style: italic;
+}
