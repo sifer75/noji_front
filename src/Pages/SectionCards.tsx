@@ -7,7 +7,6 @@ interface SectionCardsProps {
 
 function SectionCards({ id }: SectionCardsProps) {
   const params = useParams();
-  console.log(params);
 
   return (
     <div
