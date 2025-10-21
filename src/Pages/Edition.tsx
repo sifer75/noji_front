@@ -1,6 +1,16 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import MenuEdition from "../components/MenuEdition/MenuEdition";
 import StarterKit from "@tiptap/starter-kit";
+import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
+import { createLowlight } from 'lowlight';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import css from 'highlight.js/lib/languages/css';
+
+
+const lowlight = createLowlight();
+lowlight.register({ javascript, typescript, html, css });
 
 interface EditionProps {
   id: string;
@@ -8,7 +18,15 @@ interface EditionProps {
 
 function Edition({ id }: EditionProps) {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        codeBlock: false, // ⚠️ Désactiver le codeBlock natif
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript', // optionnel
+      }),
+    ],
     content: `
     <h2>
   Hi there,
@@ -27,9 +45,7 @@ function Edition({ id }: EditionProps) {
 <p>
   Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
 </p>
-<pre><code class="language-css">body {
-  display: none;
-}</code></pre>
+<pre><code class="language-javascript">console.log("Hello, World!");</code></pre>
 <p>
   I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
 </p>
@@ -46,39 +62,12 @@ function Edition({ id }: EditionProps) {
       className="flex justify-center w-full h-full flex-1 items-center bg-pink-200 p-10"
     >
       <div className="w-3/4 h-full bg-yellow-200 rounded-3xl flex flex-col items-center justify-center">
-        {/* <div className="w-full h-1/2 bg-green-300 p-10">
-          <div className="w-full h-full bg-red-300 p-10 rounded-2xl flex flex-col items-center justify-center">
-            <div className="flex gap-2 mb-2">
-              <button
-                onClick={() => editor?.chain().focus().toggleBold().run()}
-                className={`p-2 rounded ${
-                  editor?.isActive("bold")
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                Gras
-              </button>
-              <button
-                onClick={() => editor?.chain().focus().toggleItalic().run()}
-                className={`p-2 rounded ${
-                  editor?.isActive("italic")
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                Italique
-              </button>
-            </div>
-            <EditorContent editor={editor} className="tiptap-editor" />
-          </div>
-        </div> */}
         <div className="w-full h-1/2 bg-green-300 p-10">
           <div className="w-full h-full bg-blue-300 p-10 rounded-2xl flex flex-col items-center justify-center">
             <MenuEdition id={`MenuEdition__${id}`} editor={editor} />
             <EditorContent
               editor={editor}
-              className="w-full h-full bg-gray-100 rounded-b-xl overflow-scroll border-2"
+              className="tiptap-editor w-full h-full bg-gray-100 rounded-b-xl overflow-scroll border-2"
             />
           </div>
         </div>

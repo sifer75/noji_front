@@ -6,7 +6,6 @@ import SectionCards from "./Pages/SectionCards.tsx";
 import Homepage from "./Pages/Homepage.tsx";
 import Edition from "./Pages/Edition.tsx";
 import "./App.css";
-import "./code-highlighting.css";
 
 const router = createBrowserRouter([
   {

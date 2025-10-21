@@ -5,9 +5,9 @@ import PopUp from "./PopUp";
 interface ButtonEditionProps {
   id: string;
   typography: string;
-  editor?: Editor;
+  editor: Editor | null;
   action: (editor: Editor) => void;
-  isActiveCheck: (editor: Editor) => boolean;
+  isActive: boolean;
   icon: ReactNode;
 }
 
@@ -16,7 +16,7 @@ function ButtonEdition({
   typography,
   editor,
   action,
-  isActiveCheck,
+  isActive,
   icon,
 }: ButtonEditionProps) {
   const [hover, setHover] = useState<boolean>(false);
@@ -31,8 +31,8 @@ function ButtonEdition({
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.top - 50,
-        left: rect.left,
+        top: rect.top - rect.height,
+        left: rect.left + rect.width / 2,
       });
     }
     setHover(true);
@@ -44,9 +44,7 @@ function ButtonEdition({
         id={`ButtonEdition__${id}`}
         ref={buttonRef}
         className={`p-2 rounded flex-nowrap flex items-center gap-2 w-10 h-10 ${
-          editor && isActiveCheck(editor)
-            ? "bg-blue-500 text-white"
-            : "bg-gray-200"
+          isActive ? "bg-blue-500 text-white" : "bg-gray-200"
         } hover:bg-gray-200 hover:text-black`}
         onClick={() => editor && action(editor)}
         onMouseEnter={handleMouseEnter}
