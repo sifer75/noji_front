@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "noji_frontend",
-    "noji_backend"
+    "apps/*"
   ]
 }
