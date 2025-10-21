@@ -5,13 +5,11 @@ import { FaItalic } from "react-icons/fa6";
 import { FaUnderline } from "react-icons/fa6";
 import { FaStrikethrough } from "react-icons/fa6";
 import { FaCode } from "react-icons/fa6";
-// import { FaCodeBlock } from "react-icons/fa6";
 import { FaListUl } from "react-icons/fa6";
 import { FaListOl } from "react-icons/fa6";
-// import { FaQuoteLeft } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-// import { FaUndo } from "react-icons/fa6";
-// import { FaRedo } from "react-icons/fa6";
+import { IoArrowBack } from "react-icons/io5";
+import { IoArrowForward } from "react-icons/io5";
 import type { ReactNode } from "react";
 import { useEditorState } from "../../hooks/useEditorState";
 
@@ -22,7 +20,7 @@ interface MenuEditionProps {
 
 interface TypographysProps {
   typography: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   action: (editor: Editor) => void;
   isActive: boolean;
 }
@@ -73,12 +71,12 @@ function MenuEdition({ id, editor }: MenuEditionProps) {
       action: (editor: Editor) => editor.chain().focus().toggleStrike().run(),
       isActive: editorState?.isStrike ?? false,
     },
-    {
-      typography: "Code",
-      icon: <FaCode />,
-      action: (editor: Editor) => editor.chain().focus().toggleCode().run(),
-      isActive: editorState?.isCode ?? false,
-    },
+    // {
+    //   typography: "Code",
+    //   icon: <FaCode />,
+    //   action: (editor: Editor) => editor.chain().focus().toggleCode().run(),
+    //   isActive: editorState?.isCode ?? false,
+    // },
     {
       typography: "Bloc de code",
       icon: <FaCode />,
@@ -109,13 +107,13 @@ function MenuEdition({ id, editor }: MenuEditionProps) {
     },
     {
       typography: "Annuler",
-      icon: <FaCode />,
+      icon: <IoArrowBack />,
       action: (editor: Editor) => editor.chain().focus().undo().run(),
       isActive: editorState?.canUndo ?? false,
     },
     {
       typography: "Rétablir",
-      icon: <FaCode />,
+      icon: <IoArrowForward />,
       action: (editor: Editor) => editor.chain().focus().redo().run(),
       isActive: editorState?.canRedo ?? false,
     },
